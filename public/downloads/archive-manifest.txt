@@ -1,0 +1,35 @@
+WHUNDERWORLD WORLD VAULT
+========================
+
+Server established: 2012
+Site: https://whunder.world
+
+AVAILABLE MAPS
+--------------
+
+No Terraria world files have been supplied yet.
+
+READY ARCHIVE SHELVES
+---------------------
+
+1. Founders' World
+   Era: 2012 archive
+   Status: Awaiting the original world ZIP
+
+2. Community Showcase
+   Era: Build archive
+   Status: Ready for a curated world ZIP
+
+ARCHIVE CHECKLIST
+-----------------
+
+For each future map, publish:
+
+- a ZIP containing the original .wld file
+- Terraria version
+- world size and difficulty
+- archive date
+- compressed file size
+- SHA-256 checksum
+
+WhunderWorld is a community fan server and is not affiliated with or endorsed by Re-Logic.
