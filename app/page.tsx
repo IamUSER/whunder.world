@@ -1,4 +1,6 @@
-import { CampfireNotes, MagicCursor, MotionControl } from "./interactions";
+import Link from "next/link";
+
+import { MagicCursor, MotionControl } from "./interactions";
 
 const announcements = [
   {
@@ -58,21 +60,26 @@ function GemArc() {
 export default function Home() {
   return (
     <>
-      <a className="skip-link" href="#main-content">
+      <Link className="skip-link" href="#main-content" prefetch={false}>
         Skip to the adventure
-      </a>
+      </Link>
       <MagicCursor />
 
       <header className="site-header">
-        <a className="mini-mark" href="#home" aria-label="WhunderWorld home">
+        <Link
+          className="mini-mark"
+          href="#home"
+          prefetch={false}
+          aria-label="WhunderWorld home"
+        >
           <span aria-hidden="true">W</span>
           <strong>whunder.world</strong>
-        </a>
+        </Link>
         <nav className="site-nav" aria-label="Main navigation">
-          <a href="#news">News</a>
-          <a href="#campfire">Campfire</a>
-          <a href="#vault">World Vault</a>
-          <a href="#story">Our Story</a>
+          <Link href="#news" prefetch={false}>News</Link>
+          <Link href="#campfire" prefetch={false}>Campfire</Link>
+          <Link href="#vault" prefetch={false}>World Vault</Link>
+          <Link href="#story" prefetch={false}>Our Story</Link>
         </nav>
         <MotionControl />
       </header>
@@ -113,12 +120,20 @@ export default function Home() {
               A storybook world for builders, explorers, and boss hunters.
             </p>
             <div className="hero-actions">
-              <a className="pixel-button pixel-button-primary" href="#news">
+              <Link
+                className="pixel-button pixel-button-primary"
+                href="#news"
+                prefetch={false}
+              >
                 Latest news
-              </a>
-              <a className="pixel-button pixel-button-secondary" href="#vault">
+              </Link>
+              <Link
+                className="pixel-button pixel-button-secondary"
+                href="#vault"
+                prefetch={false}
+              >
                 Open the vault
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -173,14 +188,34 @@ export default function Home() {
           <div className="campfire-copy">
             <h2 id="campfire-title">Campfire Notes</h2>
             <p>
-              Pin a quest reminder, build idea, or greeting to your own little corner of the
-              world.
+              A shared message board for greetings, build ideas, and server notices is taking
+              shape.
             </p>
-            <div className="local-note">
-              Notes stay in this browser. They are not shared with other players.
-            </div>
           </div>
-          <CampfireNotes />
+          <article
+            className="campfire-board campfire-coming-soon"
+            aria-labelledby="campfire-coming-title"
+          >
+            <div className="coming-soon-spark" aria-hidden="true">
+              <span className="spark-gem" />
+              <span className="spark-note">
+                <i />
+                <i />
+                <i />
+              </span>
+              <span className="spark-star spark-star-one" />
+              <span className="spark-star spark-star-two" />
+              <span className="spark-star spark-star-three" />
+            </div>
+            <div className="coming-soon-copy">
+              <p className="coming-soon-badge">Coming soon</p>
+              <h3 id="campfire-coming-title">The message board is being crafted</h3>
+              <p>
+                Soon, adventurers will have a shared place for greetings, quest plans, and build
+                ideas.
+              </p>
+            </div>
+          </article>
         </section>
 
         <section className="vault-section section-shell" id="vault" aria-labelledby="vault-title">

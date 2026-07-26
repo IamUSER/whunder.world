@@ -8,7 +8,7 @@ A whimsical, static fan site for the WhunderWorld Terraria server.
 - animated grass, flowers, trees, clouds, gems, and a campfire
 - an original cat-blade cursor with a rainbow magic trail
 - announcements that are easy to edit in `app/page.tsx`
-- Campfire Notes saved only in each visitor's browser
+- a Campfire Notes coming-soon board for a future shared shoutbox
 - a World Vault ready for real map archives
 - static export support for GitHub Pages
 - Sites hosting support with no database or object storage
@@ -43,4 +43,4 @@ Enable GitHub Actions as the Pages source in the repository settings. Configure 
 
 ## Community note
 
-Campfire Notes use `localStorage`. They are private to one browser and origin, so they are not a shared chat. A shared community shoutbox would require a hosted service or external community platform.
+Campfire Notes are currently a coming-soon preview. A future shared shoutbox will use a hosted community service or external community platform.

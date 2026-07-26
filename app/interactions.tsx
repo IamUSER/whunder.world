@@ -1,199 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-type CampfirePost = {
-  id: string;
-  name: string;
-  message: string;
-  createdAt: string;
-};
-
-const STORAGE_KEY = "whunderworld:campfire-notes:v1";
 const MOTION_KEY = "whunderworld:motion:v1";
-const MAX_POSTS = 8;
-
-function readStoredPosts(): CampfirePost[] {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-
-    return parsed
-      .filter(
-        (post): post is CampfirePost =>
-          typeof post?.id === "string" &&
-          typeof post?.name === "string" &&
-          typeof post?.message === "string" &&
-          typeof post?.createdAt === "string",
-      )
-      .slice(0, MAX_POSTS);
-  } catch {
-    return [];
-  }
-}
-
-function formatCampfireTime(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Pinned earlier";
-  return new Intl.DateTimeFormat(undefined, {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(date);
-}
-
-export function CampfireNotes() {
-  const [posts, setPosts] = useState<CampfirePost[]>([]);
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
-  const [ready, setReady] = useState(false);
-  const [error, setError] = useState("");
-  const [status, setStatus] = useState("");
-  const [storageAvailable, setStorageAvailable] = useState(true);
-
-  useEffect(() => {
-    setPosts(readStoredPosts());
-    setReady(true);
-
-    const syncPosts = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY) setPosts(readStoredPosts());
-    };
-
-    window.addEventListener("storage", syncPosts);
-    return () => window.removeEventListener("storage", syncPosts);
-  }, []);
-
-  const persist = (nextPosts: CampfirePost[]) => {
-    setPosts(nextPosts);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextPosts));
-      setStorageAvailable(true);
-      return true;
-    } catch {
-      setStorageAvailable(false);
-      return false;
-    }
-  };
-
-  const submitPost = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const cleanName = name.trim();
-    const cleanMessage = message.trim();
-
-    if (!cleanName || !cleanMessage) {
-      setError("Add your adventurer name and a note before pinning it.");
-      setStatus("");
-      return;
-    }
-
-    const nextPost: CampfirePost = {
-      id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-      name: cleanName,
-      message: cleanMessage,
-      createdAt: new Date().toISOString(),
-    };
-
-    const saved = persist([nextPost, ...posts].slice(0, MAX_POSTS));
-    setName("");
-    setMessage("");
-    setError("");
-    setStatus(
-      saved
-        ? "Your note is pinned on this device."
-        : "Your note is pinned for this visit. Browser storage is unavailable.",
-    );
-  };
-
-  const clearPosts = () => {
-    persist([]);
-    setError("");
-    setStatus("Campfire notes cleared from this device.");
-  };
-
-  return (
-    <div className="campfire-board">
-      <form className="campfire-form" onSubmit={submitPost} noValidate>
-        <div className="field-group">
-          <label htmlFor="campfire-name">Adventurer name</label>
-          <input
-            id="campfire-name"
-            name="name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            maxLength={24}
-            autoComplete="nickname"
-            placeholder="DryadFan"
-          />
-        </div>
-        <div className="field-group">
-          <label htmlFor="campfire-message">Quest note</label>
-          <textarea
-            id="campfire-message"
-            name="message"
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-            maxLength={160}
-            rows={3}
-            placeholder="Remember ropes for the next cavern run."
-          />
-          <span className="field-help">{message.length}/160 blocks placed</span>
-        </div>
-        {error ? (
-          <p className="form-message form-error" role="alert">
-            {error}
-          </p>
-        ) : null}
-        {!storageAvailable ? (
-          <p className="form-message">
-            Storage is blocked, so these notes will disappear when this tab closes.
-          </p>
-        ) : null}
-        <button className="pixel-button pixel-button-fire" type="submit">
-          Pin note
-        </button>
-      </form>
-
-      <div className="notes-list" aria-busy={!ready}>
-        <div className="notes-list-heading">
-          <h3>Notes on this device</h3>
-          {posts.length > 0 ? (
-            <button type="button" className="text-button" onClick={clearPosts}>
-              Clear my notes
-            </button>
-          ) : null}
-        </div>
-
-        {!ready ? (
-          <div className="notes-loading" role="status">
-            <span />
-            <span />
-            Loading your campfire...
-          </div>
-        ) : posts.length === 0 ? (
-          <p className="notes-empty">No notes are pinned on this device yet.</p>
-        ) : (
-          <ol>
-            {posts.map((post) => (
-              <li key={post.id}>
-                <div>
-                  <strong>{post.name}</strong>
-                  <time dateTime={post.createdAt}>{formatCampfireTime(post.createdAt)}</time>
-                </div>
-                <p>{post.message}</p>
-              </li>
-            ))}
-          </ol>
-        )}
-      </div>
-      <p className="sr-only" aria-live="polite">
-        {status}
-      </p>
-    </div>
-  );
-}
 
 export function MotionControl() {
   const [reduced, setReduced] = useState(false);
@@ -209,12 +18,17 @@ export function MotionControl() {
     }
 
     const shouldReduce = stored === "reduced" || (stored === null && media.matches);
-    setReduced(shouldReduce);
     document.documentElement.dataset.motion = shouldReduce ? "reduced" : "full";
     window.dispatchEvent(
       new CustomEvent("whunder:motion", { detail: { reduced: shouldReduce } }),
     );
-    setReady(true);
+
+    const frame = window.requestAnimationFrame(() => {
+      setReduced(shouldReduce);
+      setReady(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const toggleMotion = () => {

@@ -12,6 +12,9 @@ test("exports a complete static WhunderWorld home page", async () => {
   assert.match(html, /A Terraria fan server since 2012/);
   assert.match(html, /From the Guide/);
   assert.match(html, /Campfire Notes/);
+  assert.match(html, /Coming soon/);
+  assert.match(html, /The message board is being crafted/);
+  assert.doesNotMatch(html, /campfire-name|campfire-message|Notes on this device/);
   assert.match(html, /The World Vault/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
@@ -31,6 +34,10 @@ test("keeps the build portable and database-free", async () => {
   assert.match(workflow, /dist\/client/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
   assert.match(page, /downloads\/archive-manifest\.txt/);
+  assert.match(page, /import Link from "next\/link"/);
+  assert.equal(page.match(/href=["']#[^"']+["']/g)?.length, 8);
+  assert.equal(page.match(/prefetch=\{false\}/g)?.length, 8);
+  assert.doesNotMatch(page, /<a[^>]*href=["']#/);
   assert.doesNotMatch(page, /\shref=["']\//);
   assert.doesNotMatch(layout, /codex-preview|Starter Project/i);
   assert.match(layout, /\/og\.png/);
