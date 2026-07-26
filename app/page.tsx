@@ -164,10 +164,10 @@ export default function Home() {
                 <p>{announcement.body}</p>
               </article>
             ))}
-            <div className="guide-sprite" aria-hidden="true">
-              <span className="guide-hat" />
-              <span className="guide-head" />
-              <span className="guide-body" />
+            <div className="bunny-sprite" aria-hidden="true">
+              <span className="bunny-ears" />
+              <span className="bunny-head" />
+              <span className="bunny-body" />
             </div>
           </div>
         </section>

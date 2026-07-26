@@ -897,65 +897,150 @@ textarea:focus-visible {
   transform: rotate(1.2deg);
 }
 
-.guide-sprite {
+.bunny-sprite {
   position: absolute;
-  bottom: -18px;
+  bottom: -14px;
   left: 52%;
-  width: 72px;
-  height: 120px;
+  width: 92px;
+  height: 106px;
+  transform-origin: 50% 100%;
+  animation: bunny-hop 5s steps(2, end) infinite;
   filter: drop-shadow(5px 5px 0 rgb(37 28 38 / 38%));
 }
 
-.guide-hat {
+.bunny-ears,
+.bunny-ears::before {
   position: absolute;
+  width: 18px;
+  height: 46px;
+  border: 4px solid #3e3039;
+  background: #fff2df;
+  box-shadow: inset 0 -7px 0 #d9c8b8;
+}
+
+.bunny-ears {
   top: 0;
-  left: 8px;
-  width: 56px;
-  height: 26px;
-  border: 4px solid #3e3039;
-  background: #6d4a2f;
+  left: 13px;
 }
 
-.guide-hat::after {
-  position: absolute;
-  top: 20px;
-  left: -12px;
-  width: 76px;
-  height: 10px;
-  border: 4px solid #3e3039;
-  background: #8a5a37;
+.bunny-ears::before {
+  top: -1px;
+  left: 29px;
   content: "";
 }
 
-.guide-head {
+.bunny-ears::after {
   position: absolute;
-  top: 33px;
-  left: 18px;
-  width: 38px;
-  height: 34px;
-  border: 4px solid #3e3039;
-  background: #efbd7f;
+  top: 7px;
+  left: 6px;
+  width: 6px;
+  height: 27px;
+  background: #e981a4;
+  box-shadow: 29px 0 0 #e981a4;
+  content: "";
 }
 
-.guide-head::after {
+.bunny-head {
   position: absolute;
-  right: 5px;
-  top: 10px;
-  width: 5px;
-  height: 5px;
+  z-index: 2;
+  top: 36px;
+  left: 5px;
+  width: 70px;
+  height: 48px;
+  border: 4px solid #3e3039;
+  background: #fff2df;
+  box-shadow: inset -7px -7px 0 #d9c8b8;
+}
+
+.bunny-head::before {
+  position: absolute;
+  top: 17px;
+  left: 14px;
+  width: 6px;
+  height: 7px;
   background: #2d2935;
-  box-shadow: -15px 0 0 #2d2935;
+  box-shadow: 34px 0 0 #2d2935;
   content: "";
 }
 
-.guide-body {
+.bunny-head::after {
   position: absolute;
+  top: 29px;
+  left: 30px;
+  width: 8px;
+  height: 7px;
+  background: #de658d;
+  box-shadow:
+    -10px 4px 0 #f3b0b7,
+    10px 4px 0 #f3b0b7;
+  content: "";
+}
+
+.bunny-body {
+  position: absolute;
+  z-index: 1;
   bottom: 0;
-  left: 9px;
-  width: 56px;
-  height: 55px;
+  left: 14px;
+  width: 54px;
+  height: 42px;
   border: 4px solid #3e3039;
-  background: #558c54;
+  background: #d9c8b8;
+}
+
+.bunny-body::before {
+  position: absolute;
+  top: 11px;
+  left: 16px;
+  width: 22px;
+  height: 23px;
+  background: #fff2df;
+  content: "";
+}
+
+.bunny-body::after {
+  position: absolute;
+  z-index: -1;
+  top: 7px;
+  right: -18px;
+  width: 18px;
+  height: 18px;
+  border: 4px solid #3e3039;
+  background: #fff2df;
+  content: "";
+}
+
+.bunny-sprite::before,
+.bunny-sprite::after {
+  position: absolute;
+  z-index: 3;
+  bottom: -2px;
+  width: 30px;
+  height: 14px;
+  border: 4px solid #3e3039;
+  background: #fff2df;
+  content: "";
+}
+
+.bunny-sprite::before {
+  left: 8px;
+}
+
+.bunny-sprite::after {
+  left: 45px;
+}
+
+@keyframes bunny-hop {
+  0%,
+  68%,
+  82%,
+  100% {
+    transform: translateY(0);
+  }
+
+  72%,
+  78% {
+    transform: translateY(-5px);
+  }
 }
 
 .campfire-section {
@@ -1792,6 +1877,7 @@ html[data-motion="reduced"] *::after {
 @media (forced-colors: active) {
   .catblade-cursor,
   .cursor-particle,
+  .bunny-sprite,
   .sky-decor,
   .ground-layer {
     display: none;
@@ -1922,7 +2008,7 @@ html[data-motion="reduced"] *::after {
     margin-top: 0;
   }
 
-  .guide-sprite {
+  .bunny-sprite {
     left: auto;
     right: 22px;
   }

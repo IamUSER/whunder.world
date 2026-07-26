@@ -11,6 +11,8 @@ test("exports a complete static WhunderWorld home page", async () => {
   assert.match(html, /aria-label="WhunderWorld"/);
   assert.match(html, /A Terraria fan server since 2012/);
   assert.match(html, /From the Guide/);
+  assert.match(html, /class="bunny-sprite"/);
+  assert.doesNotMatch(html, /guide-sprite|guide-hat|guide-head|guide-body/);
   assert.match(html, /Campfire Notes/);
   assert.match(html, /Coming soon/);
   assert.match(html, /The message board is being crafted/);
