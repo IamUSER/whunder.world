@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://whunder.world"),
+  metadataBase: new URL("https://www.whunder.world"),
   title: "WhunderWorld | Terraria Fan Server",
   description:
     "WhunderWorld is a whimsical Terraria fan server and community, established in 2012.",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: "A storybook Terraria fan server for builders, explorers, and boss hunters.",
     siteName: "WhunderWorld",
     type: "website",
-    url: "https://whunder.world",
+    url: "https://www.whunder.world",
     images: [
       {
         url: "/og.png",

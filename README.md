@@ -39,7 +39,7 @@ The Sites package is emitted in `dist/`. The static GitHub Pages artifact is emi
 ## GitHub Pages
 
 The workflow in `.github/workflows/pages.yml` publishes `dist/client/` after every push to `main`.
-Enable GitHub Actions as the Pages source in the repository settings. Configure `whunder.world` as the custom domain in the same settings when DNS is ready.
+Enable GitHub Actions as the Pages source in the repository settings. Configure `www.whunder.world` as the custom domain in the same settings when DNS is ready.
 
 ## Community note
 
